@@ -1,0 +1,36 @@
+Aluno: Huandrey Pontes
+Matrícula: 120110573
+---------------------------------------------------------------------------------------
+Questão 1:
+
+1. Acredito que uma implementação de pseudocódigo do Algoritmo de Bakery usando variáveis atomicas ficaria assim:
+
+n = total_de_processos
+
+
+// atomic flags
+atomic boolean flag[n]
+atomic int ticket[n]
+
+para todo processo i:
+    flag[i] = false // ini
+    ticket[i] = 0
+
+// método lock
+lock(i):
+    flag[i] = true
+    ticket[i] = 1 + max(ticket[0], ticket[1], ..., ticket[n-1])
+    
+    para todo processo j:
+        enquanto (j != i) e (flag[j] == true) e ( (ticket[j], j) < (ticket[i], i) ):
+            // Espera ativa
+    
+// método de unlock
+unlock(i):
+    flag[i] = false
+
+
+- flag[i] indica que o processo i está interessado em entrar na seção crítica;
+- ticket[i] atribui um "ticket" ao processo i, onde o menor ticket tem prioridade;
+- O processo i espera até que todos os processos com tickets menores (ou com mesmo ticket mas com menor índice) tenham deixado a seção crítica;
+- A operação atômica garante que a leitura e escrita em flag e ticket sejam realizadas sem interferências, assegurando a exclusão mútua;

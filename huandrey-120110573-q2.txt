@@ -1,0 +1,26 @@
+Aluno: Huandrey Pontes
+Matrícula: 120110573
+---------------------------------------------------------------------------------------
+Questão 2:
+
+2. A Razão de travas TTAS terem melhor desempenho que travas TAS é o seguinte:
+
+- Travas TAS (Test and Set):
+    - Funcionamento: Em uma trava TAS, um processo continuamente 
+    verifica e define um bit de trava até que consiga adquiri-la.
+    - Problema: Em ambientes com alta contenção, muitos processos ficam 
+    "spinning" ou "giro ocupado", causando alto consumo de CPU e 
+    congestionamento de barramento.
+
+Travas TTAS (Test and Test and Set):
+    - Funcionamento: No TTAS, um processo inicialmente faz uma leitura 
+    simples para verificar se a trava está livre (sem operações atômicas), 
+    e só então usa a operação de Test and Set se necessário.
+    - Melhor Desempenho: O TTAS reduz a quantidade de operações atômicas 
+    no barramento, pois só tenta adquirir a trava quando detecta que ela 
+    pode estar disponível. Isso diminui o consumo de CPU e a contenção, 
+    melhorando o desempenho, especialmente em sistemas com muitos processadores.
+
+O gráfico com o eixo y representando o tempo e x a quantidade de processos 
+mostrado em aula explica bem o problema que isso pode causar. Quando chega 
+em determindo momento o gráfico estoura perto do "joelho" da função.

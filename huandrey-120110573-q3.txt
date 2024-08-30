@@ -1,0 +1,27 @@
+Aluno: Huandrey Pontes
+Matrícula: 120110573
+---------------------------------------------------------------------------------------
+Questão 3:
+
+O maior problema que eu vejo aqui é uma situação onde ambos processos leem a 
+flag[j] como <strong>false<strong> antes de definirem 
+flag[i] como <strong>true<strong>. A partir daqui tudo pode ir por ladeira abaixo.
+Tecnicamente falando, o resultado disso é uma falha de exclusão múta. Isso é um problema
+muito comum que acontece quando mais de uma instrução de máquina é executada e um dos processos,
+por exemplo, perde a CPU e outro processo entra no lugar dele para executar o método lock.
+
+A título de informação a leitura do compilador pode ser da seguinte forma:
+
+Original:
+
+```java
+flag[i] = true; // instrução 1
+if (flag[j] == true) // instrução 2
+``
+
+Sequência ordenada de instruções (realidade):
+
+```java
+// flag[j] // instrução 1: flag[j] é lido
+// flag[i] = true é executado // instrução 2 é executado
+``
